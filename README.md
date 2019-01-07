@@ -21,14 +21,14 @@ Click [here](http://diet-tracker.herokuapp.com "here") for a demo link
 ![add meals and food to diet](https://user-images.githubusercontent.com/46038298/50744890-94540880-11ec-11e9-9323-90044ca4b891.gif)
 
 ## Usage
-Once you have cloned the repo, create a virtualenv and install the requirements by entering `pip install -r requirements.txt`
+Once you have cloned the repo, create a virtualenv and install the requirements by entering ```pip install -r requirements.txt```
 
 Then, make the migrations for the Django DB
-`python manage.py makemigrations`
-`python manage.py migrate`
+```python manage.py makemigrations```
+```python manage.py migrate```
 
 Finally, run the server
-`python manage.py runserver`
+```python manage.py runserver```
 
 The application will be running on http://127.0.0.1:8000
 
