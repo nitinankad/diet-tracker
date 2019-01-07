@@ -1,0 +1,131 @@
+/* Nutrition label CSS */
+.nutrition-title {
+	margin-top: 4px;
+	margin-bottom: 8px;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.nutrition-label {
+	font-family: Helvetica, Arial, sans-serif;
+
+	margin-top: 20px;
+	width: 250px;
+	border: 2px solid black;
+	padding: 8px;
+}
+
+.header {
+	padding-bottom: 4px;
+	margin-bottom: 8px;
+
+	border-bottom: 10px solid black;
+	border-spacing: 1px;
+}
+
+div.header p {
+	margin: 0;
+}
+
+.amount-per-serving {
+	margin-bottom: 4px;
+	margin-left: 3px;
+	padding-bottom: 2px;
+	border-bottom: 4px solid black;
+	border-spacing: 1px;
+}
+
+#servingtext {
+	font-size: 12px;
+	font-weight: bold;
+	margin: 0;
+}
+
+#calories {
+	font-size: 10pt;
+	margin-bottom: 3px;
+	margin-top: 2px;
+}
+
+.macros {
+	margin-top: 10px;
+	border-bottom: 10px solid black;
+		border-spacing: 1px;
+}
+
+div.macros p {
+	margin-top: 2px;
+	margin-bottom: 4px;
+	font-size: 13px;
+	margin-left: 3px;
+}
+
+div.indent p {
+	margin-left: 15px;
+	font-weight: normal;
+}
+
+.instructions {
+	margin-bottom: 2px;
+}
+
+/* Sidebar CSS */
+#sidebar {
+	width: 200px;
+	position: absolute;
+	height: 100%;
+}
+
+#main {
+	margin-left: 300px;
+	margin-top: 100px;
+	float: left;
+	width: 84%;
+}
+
+#sidebar a {
+	padding: 15px;
+	text-align: center;
+}
+
+#sidebar-text {
+	margin-top: 100px;
+	color: #fff;
+}
+
+/* Tooltip hover nutrition facts */
+div.nutrition-tooltip {
+	position: relative;
+	width: 120px;
+}
+
+div.nutrition-tooltip span {
+	display:none;
+
+}
+
+div.nutrition-tooltip:hover span {
+	display: block;
+    position: absolute;
+    bottom: 16px;
+	background: #fff;
+
+    border: 1px solid black;
+
+}
+
+div.nutrition-tooltip span p {
+	margin: 5px;
+}
+
+.align {
+	display: inline-block;
+}
+
+#spacing {
+	margin-top: 30px;
+}
+
+.food-indent {
+	margin-left: 50px;
+}

@@ -1,0 +1,3 @@
+heroku/python
+https://github.com/heroku/heroku-buildpack-apt
+https://github.com/nitinankad/heroku-buildpack-tesseract

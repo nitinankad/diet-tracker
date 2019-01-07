@@ -1,0 +1,142 @@
+{% extends 'webapp/base.html' %}
+
+{%  block content %}
+    {% if response_message %}
+    <div {% if response_message.tags %}class="{{ response_message.tags }}"{% endif %}> {{ response_message }} </div>
+    {% endif %}
+
+    <!-- Add meal -->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addMeal">Add meal</button>
+
+    <div class="modal fade" id="addMeal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Enter a meal name</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form action="/addmeal" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="meal_name" placeholder="Meal name" autocomplete="off">
+                        <input type="hidden" name="diet_name" value="{{ diet_name }}">
+                        <button type="submiit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% for meal in meals %}
+        <div>
+
+            <div class="align">
+                <h1>{{ meal.meal_name }}</h1>
+            </div>
+
+            <div class="align">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addFoodToMeal{{ meal.meal_name|cut:" " }}">Add food to {{ meal.meal_name }}</button>
+            </div>
+
+            <div class="align">
+                <form action="/deletemeal" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="meal_name" value="{{ meal.meal_name }}">
+                    <input type="hidden" name="diet_name" value="{{ diet_name }}">
+                    <button type="submit" class="btn btn-default">Delete {{ meal.meal_name }}</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="addFoodToMeal{{ meal.meal_name|cut:" " }}" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Select a food to add</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="/addfoodtomeal" method="POST">
+                            {% csrf_token %}
+
+                            {% for food in foods %}
+                                {% if food not in meal.foods.all %}
+                                    <input type="radio" name="food_name" value="{{ food.food_name }}" style="margin-right: 2px;">{{ food.food_name }}<br>
+                                {% endif %}
+                            {% endfor %}
+
+                            <input type="hidden" name="meal_name" value="{{ meal.meal_name }}">
+                            <input type="hidden" name="diet_name" value="{{ diet_name }}">
+                            <button type="submiit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        {% for food in meal.foods.all %}
+            <div class="food-indent">
+            <div class="align">
+                <h3>{{ food.food_name }}</h3>
+            </div>
+
+            <div class="align">
+            <form action="/deletefoodfrommeal" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="food_name" value="{{ food.food_name }}">
+                <input type="hidden" name="meal_name" value="{{ meal.meal_name }}">
+                <input type="hidden" name="diet_name" value="{{ diet_name }}">
+                <button type="submit" class="btn btn-default">Remove {{ food.food_name }}</button>
+            </form>
+            </div>
+
+            <div class="nutrition-tooltip">
+                <p>View nutrition</p>
+                    <span>
+                    <p><b><b>Nutrition Facts</b></b></p>
+                    <div style="border: 4px solid black;"></div>
+
+                    <p><b>Calories</b> {{ food.calories }}</p>
+                    <div style="border: 2px solid black;"></div>
+                    <p><b>Total fat</b> {{ food.totalfat }}g</p>
+                    <hr>
+                    <p><b>Carbs</b> {{ food.carbs }}g</p>
+                    <hr>
+                    <p><b>Protein</b> {{ food.protein }}g</p>
+                </span>
+            </div>
+            </div>
+
+        {% endfor %}
+
+        {% for current_meal, macros in macro_sum.items %}
+            {% if current_meal == meal.meal_name %}
+                <p><h4 style="display: inline-block">{{ current_meal }} macros:</h4> Calories: {{ macros.calories }}, Protein: {{ macros.protein }}g, Carbs: {{ macros.carbs }}g, Fats: {{ macros.fats }}g</p>
+            {% endif %}
+        {% endfor %}
+
+    {% endfor %}
+
+
+    <br>
+    <h4>Total:</h4>
+    <p>Calories: {{ total_macro_sum.calories }}, Protein: {{ total_macro_sum.protein }}g, Carbs: {{ total_macro_sum.carbs }}g, Fats: {{ total_macro_sum.fats }}g</p>
+
+    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#exportdiet">Export to text</button>
+    <div id="exportdiet" class="collapse out">
+        <textarea rows="10" cols="50" readonly="true">{{ text_format }}</textarea>
+    </div>
+{% endblock %}

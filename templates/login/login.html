@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <style>
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class='col-md-3'></div>
+                <div class="col-md-6">
+                    <div id="card">
+                        <div id="login">
+                            {% if response_message %}
+                                <p>{{ response_message }}</p>
+                            {% endif %}
+
+                            <form action="/login/" method="POST">
+                                {% csrf_token %}
+                                <legend>Login</legend>
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input name="username" type="text" class="form-control" value="" autocomplete="off" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input name="password" type="password" class="form-control" value="" autocomplete="off" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-default btn-login-submit btn-block m-t-md" value="Login">
+                                </div>
+
+                            </form>
+                            <div class="form-group">
+                                    <p class="text-center m-t-xs text-sm">Don't have an account?</p>
+                                    <button id="flip" class="btn btn-default btn-block m-t-md">Create an account</button>
+                                </div>
+                        </div>
+
+                        <div id="signup" style="display: none;">
+                            <form action="/login/register" method="POST">
+                                {% csrf_token %}
+                                <legend>Sign up</legend>
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input name="username" type="text" class="form-control required" autocomplete="off" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input name="password" type="password" class="form-control" autocomplete="off" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-default btn-login-submit btn-block m-t-md" value="Sign up" />
+                                </div>
+
+                            </form>
+                            <div class="form-group">
+                                <p class="text-center m-t-xs text-sm">Already have an account?</p>
+                                <button id="flip2" class="btn btn-default btn-block m-t-md">Login</button>
+                            </div>
+                        </div>
+
+                        <p class="text-center m-t-xs text-sm">Want to try a demo?</p>
+                        <form action="/login/" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="demo" value="demo">
+                            <button type="submit" class="btn btn-default btn-block m-t-md">Click here</button>
+                        </form>
+                    </div>
+                </div>
+                <div class='col-md-3'></div>
+            </div>
+        </div>
+
+    <script>
+        $("#flip").click(function () {
+            $("#login").hide();
+            $("#signup").show();
+        });
+
+        $("#flip2").click(function () {
+            $("#signup").hide();
+            $("#login").show();
+        });
+    </script>
+    </body>
+</html>
+
+
+
