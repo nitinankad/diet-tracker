@@ -2,7 +2,7 @@ dj-database-url==0.5.0
 Django==2.1.10
 django-heroku==0.3.1
 gunicorn==19.9.0
-Jinja2==2.10
+Jinja2==2.10.1
 MarkupSafe==1.1.0
 numpy==1.15.4
 Pillow==5.3.0
